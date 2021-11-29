@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<!---ads--->
+
+<script data-ad-client="ca-pub-9851701617300594" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<!---Icon--->
+
+<link rel="icon" href="icon.png">
+
+<!---Title--->
+
+<title>Text to Morse, Morse to Text</title>
+
+<!---Script--->
+
+<script>
+
+<!---Listen Function--->
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var ctx = new AudioContext();
+var dot = 1.2 / 15;
+
+function listen() {
+	var x = document.getElementById("output").value;
+
+    var t = ctx.currentTime;
+
+    var oscillator = ctx.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.value = 600;
+
+    var gainNode = ctx.createGain();
+    gainNode.gain.setValueAtTime(0, t);
+
+//loop
+for (i=0; i<x.length; i++) {
+var y=x.charAt(i)
+//if else
+////dot
+if (y==".") {
+				gainNode.gain.setValueAtTime(1, t);
+                t += dot;
+                gainNode.gain.setValueAtTime(0, t);
+                t += dot;
+}
+////dash
+else if (y=="-") {
+				gainNode.gain.setValueAtTime(1, t);
+                t += 3 * dot;
+                gainNode.gain.setValueAtTime(0, t);
+                t += dot;
+}
+////space
+else if (y==" ") {
+				t += 3 * dot;
+}
+////slash
+else if (y=="/") {
+				t += 1 * dot;
+}
+////enter
+else if (y=="\n") {
+				t += 3 * dot;
+}
+}
+	oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+}
+
+<!---copy function--->
+
+function copy() {
+var copyText = document.getElementById("output");
+copyText.select();
+copyText.setSelectionRange(0, 99999);
+document.execCommand("copy");
+alert("Copied the text: " + copyText.value);
+}
+
+<!---clear textarea function--->
+
+function resetTextbox() {
+document.getElementById("input").value="";
+document.getElementById("output").value="";
+result = ""
+} 
+
+<!---Run Function--->
+   
+function run() {
+var x = document.getElementById("input").value;
+x=x.trim()
+
+var result = ""
+
+for (i=0; i<x.length; i++){
+var y = x.charAt(i)
+
+<!---If Else--->
+
+
+if(y == "a" || y == "A")
+{
+result = result + ".- "
+}
+else if(y == "b" || y == "B")
+{
+result = result + "-... "
+}
+else if(y == "c" || y == "C")
+{
+result = result + "-.-. "
+}
+else if(y == "d" || y == "D")
+{
+result = result + "-.. "
+}
+else if(y == "e" || y == "E")
+{
+result = result + ". "
+}
+else if(y == "f" || y == "F")
+{
+result = result + "..-. "
+}
+else if(y == "g" || y == "G")
+{
+result = result + "--. "
+}
+else if(y == "h" || y == "H")
+{
+result = result + ".... "
+}
+else if(y == "i" || y == "I")
+{
+result = result + ".. "
+}
+else if(y == "j" || y == "J")
+{
+result = result + ".--- "
+}
+else if(y == "k" || y == "K")
+{
+result = result + "-.- "
+}
+else if(y == "l" || y == "L")
+{
+result = result + ".-.. "
+}
+else if(y == "m" || y == "M")
+{
+result = result + "-- "
+}
+else if(y == "n" || y == "N")
+{
+result = result + "-. "
+}
+else if(y == "o" || y == "O")
+{
+result = result + "--- "
+}
+else if(y == "p" || y == "P")
+{
+result = result + ".--. "
+}
+else if(y == "q" || y == "Q")
+{
+result = result + "--.- "
+}
+else if(y == "r" || y == "R")
+{
+result = result + ".-. "
+}
+else if(y == "s" || y == "S")
+{
+result = result + "... "
+}
+else if(y == "t" || y == "T")
+{
+result = result + "- "
+}
+else if(y == "u" || y == "U")
+{
+result = result + "..- "
+}
+else if(y == "v" || y == "V")
+{
+result = result + "...- "
+}
+else if(y == "w" || y == "W")
+{
+result = result + ".-- "
+}
+else if(y == "x" || y == "X")
+{
+result = result + "-..- "
+}
+else if(y == "y" || y == "Y")
+{
+result = result + "-.-- "
+}
+else if(y == "z" || y == "Z")
+{
+result = result + "--.. "
+}
+else if(y == " ")
+{
+result = result + "/ "
+}
+else if(y == "1")
+{
+result = result + ".---- "
+}
+else if(y == "2")
+{
+result = result + "..--- "
+}
+else if(y == "3")
+{
+result = result + "...-- "
+}
+else if(y == "4")
+{
+result = result + "....- "
+}
+else if(y == "5")
+{
+result = result + "..... "
+}
+else if(y == "6")
+{
+result = result + "-.... "
+}
+else if(y == "7")
+{
+result = result + "--... "
+}
+else if(y == "8")
+{
+result = result + "---.. "
+}
+else if(y == "9")
+{
+result = result + "----. "
+}
+else if(y == "0")
+{
+result = result + "----- "
+}
+else if(y == ".")
+{
+result = result + ".-.-.- "
+}
+else if(y == ",")
+{
+result = result + "--..-- "
+}
+else if(y == "?")
+{
+result = result + "..--.. "
+}
+else if(y == ":")
+{
+result = result + "---... "
+}
+else if(y == "'")
+{
+result = result + ".----. "
+}
+else if(y == '"')
+{
+result = result + ".-..-. "
+}
+else if(y == "-")
+{
+result = result + "-....-"
+}
+else if(y == "!")
+{
+result = result + "-.-.--"
+}
+else if(y == "\n")
+{
+result = result + "\n"
+}
+else
+{
+result = result + "# "
+}
+}
+document.getElementById("output").value=result;
+}
+</script>
+
+<!---style--->
+
+<style> 
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+background-color: black;
+color: #0E6B0E;
+}
+
+.heading {
+border-style: solid;
+font-size: 60px;
+border-color: white;
+color: #0E6B0E;
+}
+
+p {
+font-size: 20px;
+}
+
+textarea {
+resize: none;
+width: 100%;
+height: 284px;
+color: #0E6B0E;
+border-color: #C0C0C0;
+border-width: 2px;
+}
+
+button {
+width: 19.5%;
+height: 68px;
+background: #ffffff;
+color: #0E6B0E;
+font-size: 26px;
+border: none;
+border-radius: 10px;
+}
+
+button:hover {
+width: 19.5%;
+height: 68px;
+background: #C0C0C0;
+color: #ffffff;
+font-size: 30px;
+border: none;
+border-radius: 10px;
+}
+
+button:active {
+width: 19.5%;
+height: 68px;
+background: #808080;
+color: #404040;
+font-size: 34px;
+border: none;
+border-radius: 10px;
+}
+
+.button {
+margin: auto;
+}
+
+.space {
+visibility: hidden;
+}
+
+.rights {
+text-align: center;
+font-size: 10px;
+}
+
+</style>
+
+</head>
+
+<!---body--->
+
+<body>
+
+<!---Heading--->
+
+<div class="heading">
+<h>Text to Morse &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp - . -..- - / - --- / -- --- .-. ... .</h>
+<br>
+<h> &nbsp &nbsp &nbsp Morse to Text &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp -- --- .-. ... . / - --- / - . -..- -</h>
+</div>
+
+<!---Instructions--->
+
+<h1>Text to Morse</h1>
+<p>Type or paste your text here. Click Run after you've finished. Click Copy to copy your results.</p>
+<p>If you see a "#", that means the character you entered cannot be translated.</p>
+
+<!---Input Textbox--->
+
+<textarea id="input" placeholder="Write Here" title="Write Here"></textarea>
+<br>
+</br>
+
+<!---Buttons--->
+
+<div class="button">
+<button type=button onclick="run()" title="Run"> Run </button>
+<button type=button class="space"> Space </button>
+<button type=button onclick="copy()" title="Copy"> Copy </button>
+<button type=button class="space"> Space </button>
+<button type=button onclick="resetTextbox()" title="Reset"> Reset </button> 
+<br>
+</br>
+<button type=button onclick="listen()" title="Listen"> Listen </button>
+<button type=button class="space"> Space </button>
+<a href="Morse-to-Text.html"><button type=button title="Morse to Text"> Morse to Text </button></a>
+<button type=button class="space"> Space </button>
+<a href="#about"><button type=button title="About"> About </button></a>
+</div>
+<br>
+</br>
+
+<!---Output Textbox--->
+
+<textarea readonly id="output" placeholder="Result will appear Here" title="Result will appear Here"></textarea>
+
+<!---About--->
+
+<div id="about">
+<h2>About</h2>
+<p><b>Text to Morse</b> is a free tool that you can use anywhere anytime. Just type your text in the box given, and you can copy the results from the result box. </p>
+<p>Morse code is a widely used code to transmit data. A dot (.) is one unit, a dash (-) is three units, a slash (/) is silent seven units, and a space ( ) is silent three units. </p>
+<p>For example, (.. / .- -- / ... .- --) reads Ta-Ta-7units-Ta-Ta-3units-3units-Ta-3units-Ta-3units-7units-Ta-Ta-Ta-3units-Ta-Ta-3units-3units-Ta-3units-Ta-3units. </p>
+<p>The more practice you do, the better you get and understand. </p>
+<p>In writing sentences, there’s a space between two letters or alphabets, and a slash between two words. In above sentence, it reads “I AM SAM”</p>
+<p>For further more information, visit <a href="https://en.wikipedia.org/wiki/Morse_code" target="_blank">Wikipedia</a>.</p>
+</div>
+<hr>
+
+<!---Rights--->
+
+<div class="rights">
+All rights reserved. &#169Text to Morse, Morse to Text 2019, TTM<sup>&#174</sup>. &nbsp <a href ="readme.txt"><img src="icon.png" style=height:27px; title="readme.txt"></a>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<!---Icon--->
+
+<link rel="icon" href="icon.png">
+
+<!---Title--->
+
+<title>Text to Morse, Morse to Text</title>
+
+<!---Script--->
+
+<script>
+
+<!---Listen Function--->
+
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+var ctx = new AudioContext();
+var dot = 1.2 / 15;
+
+function listen() {
+	var x = document.getElementById("input").value;
+
+    var t = ctx.currentTime;
+
+    var oscillator = ctx.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.value = 600;
+
+    var gainNode = ctx.createGain();
+    gainNode.gain.setValueAtTime(0, t);
+
+//loop
+for (i=0; i<x.length; i++) {
+var y=x.charAt(i)
+//if else
+////dot
+if (y==".") {
+				gainNode.gain.setValueAtTime(1, t);
+                t += dot;
+                gainNode.gain.setValueAtTime(0, t);
+                t += dot;
+}
+////dash
+else if (y=="-") {
+				gainNode.gain.setValueAtTime(1, t);
+                t += 3 * dot;
+                gainNode.gain.setValueAtTime(0, t);
+                t += dot;
+}
+////space
+else if (y==" ") {
+				t += 3 * dot;
+}
+////slash
+else if (y=="/") {
+				t += 1 * dot;
+}
+////enter
+else if (y=="\n") {
+				t += 3 * dot;
+}
+}
+	oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+
+    oscillator.start();
+}
+
+
+<!---copy function--->
+
+function copy() {
+var copyText = document.getElementById("output");
+copyText.select();
+copyText.setSelectionRange(0, 99999);
+document.execCommand("copy");
+alert("Copied the text: " + copyText.value);
+}
+
+<!---clear textarea function--->
+
+function resetTextbox() {
+document.getElementById("input").value="";
+document.getElementById("output").value="";
+result = ""
+}
+
+<!---Run Function--->
+
+function run() {
+var x = document.getElementById("input").value;
+x=x.trim()
+var result=""
+//split input
+var splitenter=x.split("\n");
+for(y=0;y<splitenter.length;y++){
+var split=splitenter[y].split(" ");
+//read each room of array (for)
+for (i=0; i<split.length; i++){
+////read the value of one room of array
+////If value equals morse code, get the character
+if (split[i]==".-"){
+result=result + "A"
+}
+else if (split[i]=="-..."){
+result=result + "B"
+}
+else if (split[i]=="-.-."){
+result=result + "C"
+}
+else if (split[i]=="-.."){
+result=result + "D"
+}
+else if (split[i]=="."){
+result=result + "E"
+}
+else if (split[i]=="..-."){
+result=result + "F"
+}
+else if (split[i]=="--."){
+result=result + "G"
+}
+else if (split[i]=="...."){
+result=result + "H"
+}
+else if (split[i]==".."){
+result=result + "I"
+}
+else if (split[i]==".---"){
+result=result + "J"
+}
+else if (split[i]=="-.-"){
+result=result + "K"
+}
+else if (split[i]==".-.."){
+result=result + "L"
+}
+else if (split[i]=="--"){
+result=result + "M"
+}
+else if (split[i]=="-."){
+result=result + "N"
+}
+else if (split[i]=="---"){
+result=result + "O"
+}
+else if (split[i]==".--."){
+result=result + "P"
+}
+else if (split[i]=="--.-"){
+result=result + "Q"
+}
+else if (split[i]==".-."){
+result=result + "R"
+}
+else if (split[i]=="..."){
+result=result + "S"
+}
+else if (split[i]=="-"){
+result=result + "T"
+}
+else if (split[i]=="..-"){
+result=result + "U"
+}
+else if (split[i]=="...-"){
+result=result + "V"
+}
+else if (split[i]==".--"){
+result=result + "W"
+}
+else if (split[i]=="-..-"){
+result=result + "X"
+}
+else if (split[i]=="-.--"){
+result=result + "Y"
+}
+else if (split[i]=="--.."){
+result=result + "Z"
+}
+else if (split[i]=="/"){
+result=result + " "
+}
+else if (split[i]==".----"){
+result=result + "1"
+}
+else if (split[i]=="..---"){
+result=result + "2"
+}
+else if (split[i]=="...--"){
+result=result + "3"
+}
+else if (split[i]=="....-"){
+result=result + "4"
+}
+else if (split[i]=="....."){
+result=result + "5"
+}
+else if (split[i]=="-...."){
+result=result + "6"
+}
+else if (split[i]=="--..."){
+result=result + "7"
+}
+else if (split[i]=="---.."){
+result=result + "8"
+}
+else if (split[i]=="----."){
+result=result + "9"
+}
+else if (split[i]=="-----"){
+result=result + "0"
+}
+else if (split[i]==".-.-.-"){
+result=result + "."
+}
+else if (split[i]=="--..--"){
+result=result + ","
+}
+else if (split[i]=="..--.."){
+result=result + "?"
+}
+else if (split[i]=="---..."){
+result=result + ":"
+}
+else if (split[i]==".----."){
+result=result + "'"
+}
+else if (split[i]==".-..-."){
+result=result + '"'
+}
+else if (split[i]=="-....-"){
+result=result + "-"
+}
+else if (split[i]=="-.-.--"){
+result=result + "!"
+}
+else if (split[i]==""){
+result=result
+}
+else {
+result=result + "# "
+}
+}
+
+if(y<splitenter.length-1)
+	result=result + "\n"
+}
+//Put the result in the output box
+document.getElementById("output").value=result;
+}
+</script>
+
+<!---style--->
+
+<style>
+
+html {
+scroll-behavior: smooth;
+}
+
+body {
+background-color: black;
+color: #0E6B0E;
+}
+
+.heading {
+border-style: solid;
+font-size: 60px;
+border-color: white;
+color: #0E6B0E;
+}
+
+p {
+font-size: 20px;
+}
+
+textarea {
+resize: none;
+width: 100%;
+height: 284px;
+color: #0E6B0E;
+border-color: #C0C0C0;
+border-width: 2px;
+}
+
+button {
+width: 220px;
+height: 68px;
+background: #ffffff;
+color: #0E6B0E;
+font-size: 26px;
+border: none;
+border-radius: 10px;
+}
+
+button:hover {
+width: 220px;
+height: 68px;
+background: #C0C0C0;
+color: #ffffff;
+font-size: 30px;
+border: none;
+border-radius: 10px;
+}
+
+button:active {
+width: 220px;
+height: 68px;
+background: #808080;
+color: #404040;
+font-size: 34px;
+border: none;
+border-radius: 10px;
+}
+
+.button {
+margin: auto;
+}
+
+.space {
+visibility: hidden;
+}
+
+.rights {
+text-align: center;
+font-size: 10px;
+}
+
+</style>
+
+</head>
+
+<!---body--->
+
+<body>
+
+<!---Heading--->
+
+<div class="heading">
+<h>Text to Morse &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp - . -..- - / - --- / -- --- .-. ... .</h>
+<br>
+<h> &nbsp &nbsp &nbsp Morse to Text &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp -- --- .-. ... . / - --- / - . -..- -</h>
+</div>
+
+<!---Instructions--->
+
+<h1>Morse to Text</h1>
+<p>Type or paste your text here. Click Run after you've finished. Click Copy to copy your results.</p>
+<p>Use only ".", "-", "/" and " ".</p>
+<p>If you see a "#", that means that the code you entered is not valid.</p>
+
+<!---Input Textbox--->
+
+<textarea id="input" placeholder="Write Here"></textarea>
+<br>
+</br>
+
+<!---Buttons--->
+
+<div class="button">
+<button type=button onclick="run()"> Run </button>
+<button type=button class="space"> Space </button>
+<button type=button onclick="copy()"> Copy </button>
+<button type=button class="space"> Space </button>
+<button type=button onclick="resetTextbox()"> Reset </button>
+<br>
+</br>
+<button type=button onclick="listen()"> Listen </button>
+<button type=button class="space"> Space </button>
+<a href="index.html"><button type=button> Text to Morse </button></a>
+<button type=button class="space"> Space </button>
+<a href="#about"><button type=button> About </button></a>
+</div>
+<br>
+</br>
+
+<!---Output Textbox--->
+
+<textarea readonly id="output" placeholder="Result will appear Here"></textarea>
+
+<!---About--->
+
+<div id="about">
+<h2>About</h2>
+<p><b>Text to Morse</b> is a free tool that you can use anywhere anytime. Just type your text in the box given, and you can copy the results from the result box. </p>
+<p>Morse code is a widely used code to transmit data. A dot (.) is one unit, a dash (-) is three units, a slash (/) is silent seven units, and a space ( ) is silent three units. </p>
+<p>For example, (.. / .- -- / ... .- --) reads Ta-Ta-7units-Ta-Ta-3units-3units-Ta-3units-Ta-3units-7units-Ta-Ta-Ta-3units-Ta-Ta-3units-3units-Ta-3units-Ta-3units. </p>
+<p>The more practice you do, the better you get and understand. </p>
+<p>In writing sentences, there’s a space between two letters or alphabets, and a slash between two words. In above sentence, it reads “I AM SAM”</p>
+<p>For further more information, visit <a href="https://en.wikipedia.org/wiki/Morse_code" target="_blank">Wikipedia</a>.</p>
+</div>
+<hr>
+
+<!---Rights--->
+
+<div class="rights">
+All rights reserved. &#169Text to Morse, Morse to Text 2019, TTM<sup>&#174</sup>. &nbsp <a href ="readme.txt"><img src="icon.png" style=height:27px;></a>
+</div>
+
+</body>
+
+</html>
